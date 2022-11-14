@@ -1,0 +1,6 @@
+require('settings')
+require('packer-plugins')
+require('lsp')
+require('keymap')
+require('treesitter-config')
+require('eyecandy')

@@ -1,0 +1,191 @@
+"  control + w twice switch windows 
+" use yy to copy the whole line
+" # use z= to get spell Changing
+" # use F8 to open the markdown preview
+" # use F9 to stop the markdown preview
+" # use F10 for opening NERDTree
+set encoding=UTF-8
+call plug#begin('~/.vim/plugged')
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } 
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-surround'
+Plug 'vim-syntastic/syntastic'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'preservim/nerdcommenter'
+Plug 'vim-scripts/Intellisense-for-Vim'
+Plug 'mhinz/vim-startify'
+Plug 'preservim/nerdtree'
+Plug 'mattn/emmet-vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug '907th/vim-auto-save'
+Plug 'ryanoasis/vim-devicons'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'junegunn/goyo.vim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'vimwiki/vimwiki'
+Plug 'hdima/python-syntax'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ervandew/supertab'
+Plug 'epilande/vim-react-snippets'
+Plug 'epilande/vim-es2015-snippets'
+Plug 'cdelledonne/vim-cmake'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'elkowar/yuck.vim'
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+Plug 'udalov/kotlin-vim'
+Plug 'anosillus/vim-ipynb'
+
+call plug#end()
+syntax on
+
+colorscheme dracula 
+" colorscheme deep-space
+
+set nocompatible
+
+set smarttab     
+set tabstop=4    
+set softtabstop=4 
+set shiftwidth=4  
+set expandtab     
+set updatetime=250
+
+set nu
+set noswapfile
+set nobackup
+set signcolumn=yes
+set nowrap
+
+filetype plugin on
+
+set relativenumber
+set autoread
+set completeopt=menuone,noinsert,noselect
+" set complete+=kspell
+set modeline
+set hidden
+set showcmd
+set wildmenu
+
+set smartcase
+set incsearch
+set nohlsearch
+" set spell
+set ignorecase
+set spelllang=en_gb,fr,cjk
+set showtabline=2
+set termguicolors 
+set wrap
+
+
+let g:fzf_preview_window = 'right:50%'
+
+
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
+
+inoremap <silent><expr> <c-space> coc#refresh()
+set mouse=a
+
+
+let g:mkdp_auto_start = 0
+
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+
+let g:auto_save = 1
+
+set guifont=FiraCode\ NF:style=Regular
+
+
+nnoremap <F10> :NERDTree<CR>
+
+nnoremap <F2> :q<CR>
+" for normal mode
+nmap <silent> <F8> <Plug>MarkdownPreview
+" for insert mode
+imap <silent> <F8> <Plug>MarkdownPreview
+" for normal mode
+nmap <silent> <F9> <Plug>StopMarkdownPreview
+" for insert mode
+imap <silent> <F9> <Plug>StopMarkdownPreview
+
+
+" transprent
+hi Normal guibg=NONE ctermbg=NONE
+let g:cmake_default_config = 'build'
+lua << END
+local colors = {
+  blue   = '#80a0ff',
+  cyan   = '#79dac8',
+  black  = '#080808',
+  white  = '#c6c6c6',
+  red    = '#ff5189',
+  violet = '#d183e8',
+  grey   = '#303030',
+}
+
+local bubbles_theme = {
+  normal = {
+    a = { fg = colors.black, bg = colors.violet },
+    b = { fg = colors.white, bg = colors.grey },
+    c = { fg = colors.black, bg = colors.black },
+  },
+
+  insert = { a = { fg = colors.black, bg = colors.blue } },
+  visual = { a = { fg = colors.black, bg = colors.cyan } },
+  replace = { a = { fg = colors.black, bg = colors.red } },
+
+  inactive = {
+    a = { fg = colors.white, bg = colors.black },
+    b = { fg = colors.white, bg = colors.black },
+    c = { fg = colors.black, bg = colors.black },
+  },
+}
+
+require('lualine').setup({
+  options = {
+    theme = bubbles_theme,
+    component_separators = '|',
+    section_separators = { left = '', right = '' },
+  },
+  sections = {
+    lualine_a = {
+      { 'mode', separator = { left = '' }, right_padding = 2 },
+    },
+    lualine_b = { 'filename', 'branch' },
+    lualine_c = { 'fileformat' },
+    lualine_x = {},
+    lualine_y = { 'filetype', 'progress' },
+    lualine_z = {
+      { 'location', separator = { right = '' }, left_padding = 2 },
+    },
+  },
+  inactive_sections = {
+    lualine_a = { 'filename' },
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = { 'location' },
+  },
+  tabline = {},
+  extensions = {},
+})
+END
+
