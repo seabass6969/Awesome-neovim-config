@@ -38,5 +38,6 @@ o.wrap = true
 
 -- filetype plugin on
 -- color
-vim.cmd[[colorscheme dracula]]
+vim.cmd[[colorscheme tokyonight-night]]
 
+require("autoclose").setup({})

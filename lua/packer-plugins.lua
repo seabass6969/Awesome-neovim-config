@@ -3,7 +3,7 @@
 vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
-    use {'dracula/vim', as = 'dracula'}
+    use 'folke/tokyonight.nvim'
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
     use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
@@ -32,4 +32,34 @@ return require('packer').startup(function(use)
             require('Comment').setup()
         end
     }
+    use 'jose-elias-alvarez/null-ls.nvim'
+    use "nvim-lua/plenary.nvim"
+    use {
+      "folke/trouble.nvim",
+      requires = "kyazdani42/nvim-web-devicons",
+      config = function()
+        require("trouble").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    }
+    use { 'ibhagwan/fzf-lua',
+      -- optional for icon support
+      requires = { 'nvim-tree/nvim-web-devicons' }
+    }
+    use 'mattn/emmet-vim'
+    use 'kdav5758/TrueZen.nvim'
+    use "williamboman/mason.nvim"
+    use "williamboman/mason-lspconfig.nvim"
+    use "rafamadriz/friendly-snippets"
+    use {
+      'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    -- or                            , branch = '0.1.x',
+      requires = { {'nvim-lua/plenary.nvim'} }
+    }
+    use 'm4xshen/autoclose.nvim'
 end)
+
+
