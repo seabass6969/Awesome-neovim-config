@@ -15,7 +15,7 @@ return require('packer').startup(function(use)
       branch = 'main',
       -- your statusline
       config = function()
-        require('my_statusline')
+        require('newstatusline')
       end,
       -- some optional icons
       requires = { 'kyazdani42/nvim-web-devicons', opt = true },
@@ -60,6 +60,7 @@ return require('packer').startup(function(use)
       requires = { {'nvim-lua/plenary.nvim'} }
     }
     use 'm4xshen/autoclose.nvim'
+    use 'p00f/nvim-ts-rainbow'
 end)
 
 

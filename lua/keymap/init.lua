@@ -11,3 +11,4 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fl', builtin.lsp_references, {})
+vim.cmd [[imap <C-BS> <C-W>]]
